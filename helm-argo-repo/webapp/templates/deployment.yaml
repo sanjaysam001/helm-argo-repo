@@ -1,0 +1,40 @@
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}
+  labels:
+    name: {{ .Values.appName }}
+
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+    spec:
+      containers:
+      - name: {{ .Values.appName }}
+        image: nginx:latest
+        ports:
+        - containerPort: {{ .Values.port }}
+        resources:
+          {{- if eq .Values.environment "production" }}
+          limits:
+            cpu: {{ .Values.resources.production.cpuLimit }}
+            memory: {{ .Values.resources.production.memoryLimit }}
+          requests:
+            cpu: {{ .Values.resources.production.cpuRequest }}
+            memory: {{ .Values.resources.production.memoryRequest }}
+          {{- else }}
+          limits:
+            cpu: {{ .Values.resources.development.cpuLimit }}
+            memory: {{ .Values.resources.development.memoryLimit }}
+          requests:
+            cpu: {{ .Values.resources.development.cpuRequest }}
+            memory: {{ .Values.resources.development.memoryRequest }}
+          {{- end }}

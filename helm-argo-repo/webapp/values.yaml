@@ -1,0 +1,23 @@
+
+
+appName: helmapp
+
+environment: development
+
+service:
+  name: myservice       
+  type: LoadBalancer      
+  port: 80               
+  targetPort: 80   
+
+resources:
+  production:
+    cpuLimit: "1000m"
+    memoryLimit: "512Mi"
+    cpuRequest: "500m"
+    memoryRequest: "256Mi"
+  development:
+    cpuLimit: "250m"
+    memoryLimit: "256Mi"
+    cpuRequest: "200m"
+    memoryRequest: "128Mi"
