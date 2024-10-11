@@ -4,6 +4,9 @@ appName: helmapp
 
 environment: development
 
+containerport:
+   port: 80
+
 service:
   name: myservice       
   type: LoadBalancer      
