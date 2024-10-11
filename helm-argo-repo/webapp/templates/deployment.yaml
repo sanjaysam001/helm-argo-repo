@@ -21,7 +21,7 @@ spec:
       - name: {{ .Values.appName }}
         image: nginx:latest
         ports:
-        - containerPort: {{ .Values.port }}
+        - containerPort: {{ .Values.containerport.port }}
         resources:
           {{- if eq .Values.environment "production" }}
           limits:
